@@ -918,6 +918,46 @@
           }
         }
       }
+    },
+    "/uploadPng": {
+      "post": {
+        "summary": "uploads an image in png format",
+        "operationId": "uploadPng",
+        "parameters": [],
+        "requestBody": {
+          "description": "The file content.",
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "type": "OK",
+                  "message": "OK"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
     }
   },
   "components": {

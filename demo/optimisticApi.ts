@@ -536,3 +536,18 @@ export function getIssue31ByFoo(
     )
   );
 }
+/**
+ * uploads an image in png format
+ */
+export function uploadPng(body?: Blob, opts?: Oazapfts.RequestOpts) {
+  return oazapfts.ok(
+    oazapfts.fetchJson<{
+      status: 200;
+      data: ApiResponse;
+    }>("/uploadPng", {
+      ...opts,
+      method: "POST",
+      body,
+    })
+  );
+}
