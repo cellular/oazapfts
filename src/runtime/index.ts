@@ -10,7 +10,7 @@ export type RequestOpts = {
 } & Omit<RequestInit, "body" | "headers">;
 
 type FetchRequestOpts = RequestOpts & {
-  body?: string | FormData;
+  body?: string | FormData | Blob;
 };
 
 type JsonRequestOpts = RequestOpts & {
