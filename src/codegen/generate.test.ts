@@ -53,7 +53,7 @@ describe("generate with blob download", () => {
     const artefact = printAst(new ApiGenerator(spec).generateApi());
     const oneLine = artefact.replace(/\s+/g, " ");
     expect(oneLine).toContain(
-      "return oazapfts.fetchBlob<{ status: 200; data: Blob; }>(`/file/${fileId}/download`, { ...opts });"
+      "return oazapfts.fetchBlob<{ status: 200; data: Blob; }>(`/file/${encodeURIComponent(fileId)}/download`, { ...opts });"
     );
   });
 });

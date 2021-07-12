@@ -29,7 +29,9 @@ export function deep(
         if (typeof v === "object") {
           return visit(v, key);
         }
-        return qv`${key}=${v}`;
+        // TODO: Check if va can be anything else than string
+        // @ts-expect-error How can we know that v needs to be a string?
+        return qv`${key}=${encodeURIComponent(v.toString())}`;
       })
       .join("&");
 
@@ -51,12 +53,12 @@ export function explode(
     .filter(([, value]) => value !== undefined)
     .map(([name, value]) => {
       if (Array.isArray(value)) {
-        return value.map((v) => q`${name}=${v}`).join("&");
+        return value.map((v) => q`${name}=${encodeURIComponent(v)}`).join("&");
       }
       if (typeof value === "object") {
         return explode(value, encoders);
       }
-      return q`${name}=${value}`;
+      return q`${name}=${encodeURIComponent(value)}`;
     })
     .join("&");
 }

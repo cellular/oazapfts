@@ -175,7 +175,7 @@ export function getPetById(petId: number, opts?: Oazapfts.RequestOpts) {
     | {
         status: 404;
       }
-  >(`/pet/${petId}`, {
+  >(`/pet/${encodeURIComponent(petId)}`, {
     ...opts,
   });
 }
@@ -191,7 +191,7 @@ export function updatePetWithForm(
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.fetchText(
-    `/pet/${petId}`,
+    `/pet/${encodeURIComponent(petId)}`,
     oazapfts.form({
       ...opts,
       method: "POST",
@@ -211,7 +211,7 @@ export function deletePet(
   } = {},
   opts?: Oazapfts.RequestOpts
 ) {
-  return oazapfts.fetchText(`/pet/${petId}`, {
+  return oazapfts.fetchText(`/pet/${encodeURIComponent(petId)}`, {
     ...opts,
     method: "DELETE",
     headers: {
@@ -235,7 +235,7 @@ export function uploadFile(
     status: 200;
     data: ApiResponse;
   }>(
-    `/pet/${petId}/uploadImage`,
+    `/pet/${encodeURIComponent(petId)}/uploadImage`,
     oazapfts.multipart({
       ...opts,
       method: "POST",
@@ -295,7 +295,7 @@ export function getOrderById(orderId: number, opts?: Oazapfts.RequestOpts) {
         status: 404;
         data: string;
       }
-  >(`/store/order/${orderId}`, {
+  >(`/store/order/${encodeURIComponent(orderId)}`, {
     ...opts,
   });
 }
@@ -303,7 +303,7 @@ export function getOrderById(orderId: number, opts?: Oazapfts.RequestOpts) {
  * Delete purchase order by ID
  */
 export function deleteOrder(orderId: number, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchText(`/store/order/${orderId}`, {
+  return oazapfts.fetchText(`/store/order/${encodeURIComponent(orderId)}`, {
     ...opts,
     method: "DELETE",
   });
@@ -407,7 +407,7 @@ export function getUserByName(username: string, opts?: Oazapfts.RequestOpts) {
         status: 404;
         data: string;
       }
-  >(`/user/${username}`, {
+  >(`/user/${encodeURIComponent(username)}`, {
     ...opts,
   });
 }
@@ -420,7 +420,7 @@ export function updateUser(
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.fetchText(
-    `/user/${username}`,
+    `/user/${encodeURIComponent(username)}`,
     oazapfts.json({
       ...opts,
       method: "PUT",
@@ -432,7 +432,7 @@ export function updateUser(
  * Delete user
  */
 export function deleteUser(username: string, opts?: Oazapfts.RequestOpts) {
-  return oazapfts.fetchText(`/user/${username}`, {
+  return oazapfts.fetchText(`/user/${encodeURIComponent(username)}`, {
     ...opts,
     method: "DELETE",
   });
@@ -480,7 +480,7 @@ export function getIssue31ByFoo(
   opts?: Oazapfts.RequestOpts
 ) {
   return oazapfts.fetchText(
-    `/issue31/${foo}${QS.query(
+    `/issue31/${encodeURIComponent(foo)}${QS.query(
       QS.form({
         bar,
         baz,

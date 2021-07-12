@@ -102,10 +102,17 @@ export function createUrlExpression(path: string, qs?: ts.Expression) {
     /(.*?)\{(.+?)\}(.*?)(?=\{|$)/g,
     (_substr, head, name, literal) => {
       const expression = _.camelCase(name);
-      spans.push({ expression: factory.createIdentifier(expression), literal });
+      spans.push({
+        expression: cg.createCall(
+          factory.createIdentifier("encodeURIComponent"),
+          { args: [factory.createIdentifier(expression)] }
+        ),
+        literal,
+      });
       return head;
     }
   );
+
   if (qs) {
     // add the query string as last span
     spans.push({ expression: qs, literal: "" });
