@@ -63,14 +63,17 @@ export function updatePet(pet: Pet, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 204;
+        headers: Headers;
         data: string;
       }
     | {
         status: 404;
+        headers: Headers;
         data: string;
       }
     | {
         status: number;
+        headers: Headers;
         data: {
           errors?: string[];
         };
@@ -91,10 +94,12 @@ export function addPet(pet: Pet, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: Pet;
       }
     | {
         status: 201;
+        headers: Headers;
         data: {
           id?: string;
         };
@@ -118,10 +123,12 @@ export function findPetsByStatus(
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: Pet[];
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
   >(
@@ -142,10 +149,12 @@ export function findPetsByTags(tags: string[], opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: Pet[];
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
   >(
@@ -166,14 +175,17 @@ export function getPetById(petId: number, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: Pet;
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
     | {
         status: 404;
+        headers: Headers;
       }
   >(`/pet/${petId}`, {
     ...opts,
@@ -233,6 +245,7 @@ export function uploadFile(
 ) {
   return oazapfts.fetchJson<{
     status: 200;
+    headers: Headers;
     data: ApiResponse;
   }>(
     `/pet/${petId}/uploadImage`,
@@ -249,6 +262,7 @@ export function uploadFile(
 export function getInventory(opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<{
     status: 200;
+    headers: Headers;
     data: {
       [key: string]: number;
     };
@@ -263,10 +277,12 @@ export function placeOrder(order: Order, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: Order;
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
   >(
@@ -285,14 +301,17 @@ export function getOrderById(orderId: number, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: Order;
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
     | {
         status: 404;
+        headers: Headers;
         data: string;
       }
   >(`/store/order/${orderId}`, {
@@ -364,10 +383,12 @@ export function loginUser(
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: string;
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
   >(
@@ -397,14 +418,17 @@ export function getUserByName(username: string, opts?: Oazapfts.RequestOpts) {
   return oazapfts.fetchJson<
     | {
         status: 200;
+        headers: Headers;
         data: User;
       }
     | {
         status: 400;
+        headers: Headers;
         data: string;
       }
     | {
         status: 404;
+        headers: Headers;
         data: string;
       }
   >(`/user/${username}`, {

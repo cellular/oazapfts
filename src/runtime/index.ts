@@ -17,7 +17,11 @@ type JsonRequestOpts = RequestOpts & {
   body?: object;
 };
 
-export type ApiResponse = { status: number; data?: any };
+export type ApiResponse = {
+  status: number;
+  data?: any;
+  headers: Headers;
+};
 
 type MultipartRequestOpts = RequestOpts & {
   body?: Record<string, string | Blob | undefined | any>;
@@ -35,6 +39,7 @@ export function runtime(defaults: RequestOpts) {
       status: res.status,
       contentType: res.headers.get("content-type"),
       data,
+      headers: res.headers,
     };
   }
 
@@ -42,7 +47,7 @@ export function runtime(defaults: RequestOpts) {
     url: string,
     req: FetchRequestOpts = {}
   ) {
-    const { status, contentType, data } = await fetchText(url, {
+    const { status, contentType, data, headers } = await fetchText(url, {
       ...req,
       headers: {
         ...req.headers,
@@ -56,10 +61,10 @@ export function runtime(defaults: RequestOpts) {
       : false;
 
     if (isJson) {
-      return { status, data: data ? JSON.parse(data) : null } as T;
+      return { status, data: data ? JSON.parse(data) : null, headers } as T;
     }
 
-    return { status, data } as T;
+    return { status, data, headers } as T;
   }
 
   async function fetchBlob<T extends ApiResponse>(
@@ -71,7 +76,11 @@ export function runtime(defaults: RequestOpts) {
     try {
       data = await res.blob();
     } catch (err) {}
-    return { status: res.status, data } as T;
+    return {
+      status: res.status,
+      data,
+      headers: res.headers,
+    } as T;
   }
 
   async function doFetch(url: string, req: FetchRequestOpts = {}) {
